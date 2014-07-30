@@ -1,6 +1,8 @@
 <?php
 
 // This file contains all SQL that deals with groups.
+//
+// Note that the functions in this file all start with the prefix 'g_'.
 
 function g_get_groups_with_name($db, $name)
 {
