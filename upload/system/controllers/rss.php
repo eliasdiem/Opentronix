@@ -14,6 +14,8 @@
 	 *
 	 */
 
+	require_once( $GLOBALS['C']->INCPATH.'sql/func_groups.php' );
+
 	$this->load_langfile('inside/global.php');
 	$this->load_langfile('inside/rss.php');
 
@@ -49,7 +51,7 @@
 		$rss_altlink	= $C->SITE_URL.'dashboard/tab:@me';
 		$not_in_groups	= array();
 		if( ! $this->user->info->is_network_admin ) {
-			$r	= $db2->query('SELECT id FROM groups WHERE is_public=0');
+			$r	= g_get_nonpublic_groups($db2);
 			while($obj = $db2->fetch_object($r)) {
 				$g	= $this->network->get_group_by_id($obj->id);
 				if( ! $g ) {
@@ -89,7 +91,7 @@
 		$rss_title	= $this->lang('rss_allposts');
 		$rss_altlink	= $C->SITE_URL.'dashboard/tab:everybody';
 		$not_in_groups	= array();
-		$r	= $db2->query('SELECT id FROM groups WHERE is_public=0');
+		$r	= g_get_nonpublic_groups($db2);
 		while($obj = $db2->fetch_object($r)) {
 			$g	= $this->network->get_group_by_id($obj->id);
 			if( ! $g ) {
@@ -120,7 +122,7 @@
 			$rss_title	= $this->lang('rss_usrposts', array('#USERNAME#'=>$u->username));
 			$rss_altlink	= $C->SITE_URL.$u->username;
 			$not_in_groups	= array();
-			$r	= $db2->query('SELECT id FROM groups WHERE is_public=0');
+			$r	= g_get_nonpublic_groups($db2);
 			while($obj = $db2->fetch_object($r)) {
 				$g	= $this->network->get_group_by_id($obj->id);
 				if( ! $g ) {
