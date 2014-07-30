@@ -4,6 +4,8 @@ if( !$this->network->id ) {
 	$this->redirect('home');
 }
 
+require_once( $GLOBALS['C']->INCPATH.'sql/func_groups.php' );
+
 $this->load_langfile('inside/global.php');
 $this->load_langfile('inside/groups.php');
 
@@ -28,7 +30,7 @@ $D->page_title	= $this->lang('groups_page_title_'.$D->tab, array('#COMPANY#'=>$C
 
 $not_in_groups	= array();
 if( !$this->user->is_logged || !$this->user->info->is_network_admin ) {
-	$r	= $db2->query('SELECT id FROM groups WHERE is_public=0');
+	$r	= g_get_nonpublic_groups($db2);
 	while($obj = $db2->fetch_object($r)) {
 		$g	= $this->network->get_group_by_id($obj->id);
 		if( ! $g ) {
