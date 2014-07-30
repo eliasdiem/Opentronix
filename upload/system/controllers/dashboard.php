@@ -7,6 +7,8 @@ if( !$this->user->is_logged ) {
 	$this->redirect('home');
 }
 
+require_once( $GLOBALS['C']->INCPATH.'sql/func_groups.php' );
+
 $this->load_langfile('inside/global.php');
 $this->load_langfile('inside/dashboard.php');
 
@@ -88,7 +90,7 @@ if($tab=='group' && $this->param('g')) {
 $not_in_groups	= '';
 if( !$this->user->info->is_network_admin && ($tab == '@me' || $tab == 'everybody')) {
 	$not_in_groups	= array();
-	$r	= $db2->query('SELECT id FROM groups WHERE is_public=0');
+	$r	= g_get_nonpublic_groups($db2);
 	while($obj = $db2->fetch_object($r)) {
 		$g	= $this->network->get_group_by_id($obj->id);
 		if( ! $g ) {
