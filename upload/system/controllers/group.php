@@ -23,6 +23,8 @@ if( $g->is_private && !$this->user->info->is_network_admin ) {
 	}
 }
 
+require_once( $GLOBALS['C']->INCPATH.'sql/func_groups.php' );
+
 $D->page_title	= $g->title.' - '.$C->SITE_TITLE;
 $D->page_favicon	= $C->IMG_URL.'avatars/thumbs2/'.$g->avatar;
 
@@ -368,9 +370,7 @@ elseif( $D->tab == 'settings' && $D->i_am_admin )
 				$D->errmsg	= 'group_setterr_title_chars';
 			}
 			elseif( $D->form_title != $g->title ) {
-				$db2->query('SELECT id FROM groups WHERE '.
-					'(groupname="'.$db2->e($D->form_title).'" OR '.
-					'title="'.$db2->e($D->form_title).'") AND id<>"'.$g->id.'" LIMIT 1');
+				g_query_for_name($db2, $D->form_title, $g->id);
 				if( $db2->num_rows() > 0 ) {
 					$D->error	= TRUE;
 					$D->errmsg	= 'group_setterr_title_exists';
@@ -390,9 +390,7 @@ elseif( $D->tab == 'settings' && $D->i_am_admin )
 				$D->errmsg	= 'group_setterr_name_chars';
 			}
 			elseif( $D->form_groupname != $g->groupname ) {
-				$db2->query('SELECT id FROM groups WHERE '.
-					'(groupname="'.$db2->e($D->form_groupname).'" OR '.
-					'title="'.$db2->e($D->form_groupname).'") AND id<>"'.$g->id.'" LIMIT 1');
+				g_query_for_name($db2, $D->form_groupname, $g->id);
 				if( $db2->num_rows() > 0 ) {
 					$D->error	= TRUE;
 					$D->errmsg	= 'group_setterr_name_exists';
