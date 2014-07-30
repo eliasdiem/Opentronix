@@ -14,4 +14,11 @@ EOQ;
 	return $db->query($q, FALSE);
 }
 
+function g_get_group($db, $gid)
+{
+	$q = "SELECT * FROM groups WHERE id='$gid' LIMIT 1";
+
+	return $db->query($q, FALSE);
+}
+
 ?>

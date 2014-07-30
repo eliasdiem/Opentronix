@@ -323,7 +323,7 @@ class network
 			$loaded[$cachekey] = $data;
 			return $data;
 		}
-		$r	= $this->db2->query('SELECT * FROM groups WHERE id="'.$gid.'" LIMIT 1', FALSE);
+		$r	= g_get_group($this->db2, $gid);
 		if($o = $this->db2->fetch_object($r)) {
 			$o->title		= stripslashes($o->title);
 			$o->is_public	= $o->is_public==1;
