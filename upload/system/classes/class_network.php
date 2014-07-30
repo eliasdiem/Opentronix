@@ -1,5 +1,7 @@
 <?php
 
+require_once( $GLOBALS['C']->INCPATH.'sql/func_groups.php' );
+
 class network
 {
 	public $id;
@@ -292,9 +294,7 @@ class network
 			return $return_id ? $gid : $this->get_group_by_id($gid);
 		}
 		$gid	= FALSE;
-		$r	= $this->db2->query('SELECT id FROM groups WHERE '.
-			'groupname="'.$this->db2->escape($gname).'" OR '.
-			'title="'.$this->db2->escape($gname).'" LIMIT 1', FALSE);
+		$r	= g_get_groups_with_name($this->db2, $gname);
 		if( $o = $this->db2->fetch_object($r) ) {
 			$gid	= intval($o->id);
 			$this->cache->set($cachekey, $gid, $GLOBALS['C']->CACHE_EXPIRE);
