@@ -21,4 +21,11 @@ function g_get_group($db, $gid)
 	return $db->query($q, FALSE);
 }
 
+function g_get_nonpublic_groups($db)
+{
+	$q = 'SELECT id FROM groups WHERE is_public=0';
+
+	return $db->query($q);
+}
+
 ?>
