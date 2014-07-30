@@ -450,7 +450,7 @@ while($tmp = $db2->fetch_object()) {
 
 $D->post_tags	= array();
 $not_in_groups	= array();
-$r	= $this->db2->query('SELECT id FROM groups WHERE is_public=0');
+$r	= g_get_nonpublic_groups($this->db2);
 while($tmp = $this->db2->fetch_object()) {
 	$not_in_group[]	= $tmp->id;
 }
