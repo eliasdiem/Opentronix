@@ -43,4 +43,23 @@ EOQ;
 	$db->query($q);
 }
 
+function g_fetch_count($db, $not_in_groups)
+{
+	$q = 'SELECT COUNT(id) FROM groups WHERE 1 '.$not_in_groups;
+
+	return $db->fetch_field($q);
+}
+
+function g_query_for_groups($db, $not_in_groups, $from, $num_groups)
+{
+	$q = <<<EOQ
+		SELECT id FROM groups WHERE 1 $not_in_groups
+		ORDER BY title ASC, id ASC
+		LIMIT $from , $num_groups
+EOQ;
+
+	// do not return a result.
+	$db->query($q);
+}
+
 ?>
