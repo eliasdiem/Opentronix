@@ -156,9 +156,7 @@
 			$gids[]	= intval($o->id);
 		}
 		$tmp	= str_replace(array('%','_'), array('\%','\_'), $db2->e($D->search_string));
-		$db2->query('SELECT id FROM groups WHERE '.
-			'(groupname LIKE "%'.$tmp.'%" OR title LIKE "%'.$tmp.'%") '.$not_in_groups.
-			' ORDER BY title ASC, num_followers DESC');
+		g_query_groups_not_in_groups($db2, $tmp, $not_in_groups);
 		while($o = $db2->fetch_object()) {
 			$gids[]	= intval($o->id);
 		}
