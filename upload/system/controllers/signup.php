@@ -218,7 +218,7 @@
 
 			// username?
 			if( !$D->error ) {
-				$db2->query('SELECT id FROM groups WHERE groupname="'.$db2->e($D->username).'" LIMIT 1');
+				g_query_groupname($db2, $D->username);
 				if($obj = $db2->fetch_object()) {
 					$D->error	= TRUE;
 					$D->errmsg	= 'signup_err_usernm_exists';
