@@ -116,4 +116,16 @@ EOQ;
 	$db->query($q);
 }
 
+function g_query_groups_about_me($db, $about_me, $not_in_groups)
+{
+	$q = <<<EOQ
+		SELECT id FROM groups WHERE
+		about_me LIKE "%$about_me%" $not_in_groups
+		ORDER BY title ASC, num_followers DESC
+EOQ;
+
+	// do not return a result.
+	$db->query($q);
+}
+
 ?>
