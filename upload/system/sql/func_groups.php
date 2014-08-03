@@ -62,4 +62,18 @@ EOQ;
 	$db->query($q);
 }
 
+function g_get_groups_not_in_groups($db, $word, $not_in_groups)
+{
+	$word = $db->escape($word);
+	$q = <<<EOQ
+		SELECT id FROM groups WHERE
+		(groupname LIKE "%$word%" OR title LIKE "%$word%")
+		$not_in_groups
+		ORDER BY num_followers DESC, title ASC
+		LIMIT 5
+EOQ;
+
+	return $db->query($q);
+}
+
 ?>
