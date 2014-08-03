@@ -63,6 +63,18 @@ function g_fetch_count($db, $not_in_groups)
 	return $db->fetch_field($q);
 }
 
+function g_fetch_name($db, $name)
+{
+	$name = $db->escape($name);
+	$q = <<<EOQ
+		SELECT id FROM groups WHERE
+		groupname="$name"
+		LIMIT 1'
+EOQ;
+
+	return $db->fetch_field($q);
+}
+
 function g_query_for_groups($db, $not_in_groups, $from, $num_groups)
 {
 	$q = <<<EOQ

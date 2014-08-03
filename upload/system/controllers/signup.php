@@ -16,6 +16,7 @@
 	require_once( $C->INCPATH.'helpers/func_images.php' );
 	require_once( $C->INCPATH.'helpers/func_captcha.php' );
 	require_once( $C->INCPATH.'helpers/func_recaptcha.php');
+	require_once( $C->INCPATH.'sql/func_groups.php' );
 
 	$D->terms_of_use	= FALSE;
 	if( isset($C->TERMSPAGE_ENABLED,$C->TERMSPAGE_CONTENT) && $C->TERMSPAGE_ENABLED==1 && !empty($C->TERMSPAGE_CONTENT) ) {
@@ -153,7 +154,7 @@
 		if( !empty($tmp_try_username) && !preg_match('/[^a-z0-9-_]/i', $tmp_try_username) ) {
 			if( !file_exists($C->INCPATH.'controllers/'.strtolower($tmp_try_username).'.php') && !file_exists($C->INCPATH.'controllers/mobile/'.strtolower($tmp_try_username).'.php') && !file_exists($C->INCPATH.'../'.strtolower($tmp_try_username)) ) {
 				if( !$db2->fetch_field('SELECT id FROM users WHERE username="'.$db2->e($tmp_try_username).'" LIMIT 1') &&
-					!$db2->fetch_field('SELECT id FROM groups WHERE groupname="'.$db2->e($tmp_try_username).'" LIMIT 1') ) {
+					!g_fetch_name($db2, $tmp_try_username) ) {
 					$D->username	= $tmp_try_username;
 				}
 			}
