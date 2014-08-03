@@ -61,7 +61,7 @@
 		$tmp	= array_keys(array_slice($this->network->get_user_follows($this->user->id)->follow_groups, $from, $C->PAGING_NUM_GROUPS, TRUE));
 	}
 	else {
-		$D->num_results	= $db2->fetch_field('SELECT COUNT(id) FROM groups WHERE 1 '.$not_in_groups);
+		$D->num_results	= g_fetch_count($db2, $not_in_groups);
 		$D->num_pages	= ceil($D->num_results / $C->PAGING_NUM_GROUPS);
 		$D->pg	= min($D->pg, $D->num_pages);
 		$D->pg	= max($D->pg, 1);
