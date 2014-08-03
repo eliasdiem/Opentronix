@@ -19,6 +19,8 @@
 		$this->redirect( $C->SITE_URL.'search/?lookin=posts&lookfor='.urlencode(trim($tmp)) );
 	}
 
+	require_once( $GLOBALS['C']->INCPATH.'sql/func_groups.php' );
+
 	$lookins	= array('posts', 'users', 'groups');
 	$D->lookin	= 'posts';
 	if( isset($_GET['lookin']) && in_array($_GET['lookin'], $lookins) ) {
@@ -88,7 +90,7 @@
 	elseif( $D->lookin=='groups' && !empty($D->search_string) ) {
 		$not_in_groups	= array();
 		if( ! $this->user->info->is_network_admin ) {
-			$r	= $db2->query('SELECT id FROM groups WHERE is_public=0');
+			$r	= g_get_nonpublic_groups($db2);
 			while($obj = $db2->fetch_object($r)) {
 				$g	= $this->network->get_group_by_id($obj->id);
 				if( ! $g ) {
