@@ -161,8 +161,7 @@
 			$gids[]	= intval($o->id);
 		}
 		//if( 0 == count($gids) ) {
-			$db2->query('SELECT id FROM groups WHERE about_me LIKE "%'.$tmp.'%" '.$not_in_groups.
-				' ORDER BY title ASC, num_followers DESC');
+			g_query_groups_about_me($db2, $tmp, $not_in_groups);
 			while($o = $db2->fetch_object()) {
 				$gids[]	= intval($o->id);
 			}
