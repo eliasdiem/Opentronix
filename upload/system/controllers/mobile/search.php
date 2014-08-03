@@ -109,10 +109,7 @@
 		}
 		$not_in_groups	= count($not_in_groups)>0 ? ('AND id NOT IN('.implode(', ', $not_in_groups).')') : '';
 		$gids	= array();
-		$tmp	= $db2->e($D->search_string);
-		$db2->query('SELECT id FROM groups WHERE '.
-			'(groupname="'.$tmp.'" OR title="'.$tmp.'") '.$not_in_groups.
-			' ORDER BY title ASC, num_followers DESC');
+		g_query_for_groups_not_in_groups($db2, $D->search_string, $not_in_groups);
 		while($o = $db2->fetch_object()) {
 			$gids[]	= intval($o->id);
 		}

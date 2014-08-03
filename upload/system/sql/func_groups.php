@@ -89,4 +89,17 @@ EOQ;
 	return $db->query($q);
 }
 
+function g_query_for_groups_not_in_groups($db, $name, $not_in_groups)
+{
+	$name = $db->escape($name);
+	$q = <<<EOQ
+		SELECT id FROM groups WHERE
+		(groupname="$name" OR title="$name") $not_in_groups
+		ORDER BY title ASC, num_followers DESC
+EOQ;
+
+	// do not return a result.
+	$db->query($q);
+}
+
 ?>
