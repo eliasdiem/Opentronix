@@ -191,7 +191,7 @@
 			$in_where	.= ')';
 			$not_in_groups	= array();
 			if( ! $this->user->info->is_network_admin ) {
-				$r	= $db2->query('SELECT id FROM groups WHERE is_public=0');
+				$r	= g_get_nonpublic_groups($db2);
 				while($obj = $db2->fetch_object($r)) {
 					$g	= $this->network->get_group_by_id($obj->id);
 					if( ! $g ) {
