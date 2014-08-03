@@ -16,6 +16,19 @@ EOQ;
 	return $db->query($q, FALSE);
 }
 
+function g_query_groups_with_name($db, $name)
+{
+	$name = $db->escape($name);
+	$q = <<<EOQ
+		SELECT id FROM groups WHERE
+		(groupname="$name" OR title="$name")
+		LIMIT 1
+EOQ;
+
+	// do not return a result.
+	$db->query($q);
+}
+
 function g_get_group($db, $gid)
 {
 	$q = "SELECT * FROM groups WHERE id='$gid' LIMIT 1";
