@@ -337,7 +337,7 @@
 			  `avatar` varchar(200) collate utf8_unicode_ci NOT NULL,
 			  `about_me` varchar(200) collate utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY  (`id`),
-			  UNIQUE KEY `groupname` (`groupname`),
+			  UNIQUE KEY `groupname` (`groupname`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		", $conn);
 		$res	= $res && my_mysql_query("
